@@ -9,17 +9,17 @@ pygame.init()
 pygame.mixer.init() 
 
 pygame.mixer.music.set_volume(0.1)  
-musica_de_fundo = pygame.mixer.music.load('sons/BoxCat-Games-Mt-Fox-Shop.wav')  
+musica_de_fundo = pygame.mixer.music.load('sons/Tec-Pix.wav')  
 pygame.mixer.music.play(-1) 
 
-barulho_colisao = pygame.mixer.Sound('sons/smw_coin.wav')
+"""barulho_colisao = pygame.mixer.Sound('sons/smw_coin.wav')"""
 
 largura = 640
 altura = 480
 x_cobra = int(largura / 2)
 y_cobra = int(altura / 2)
 
-velocidade = 10
+velocidade = 3
 x_controle = velocidade
 y_controle = 0
 
@@ -33,20 +33,19 @@ relogio = pygame.time.Clock()
 tela = pygame.display.set_mode((largura, altura))  
 pygame.display.set_caption('Snake Game com estilo')  
 lista_cobra = []
-comprimento_inicial = 5
+comprimento_inicial = 10
 morreu = False
 inicio = True
 
 
 def aumenta_cobra(lista_cobra):
     for XeY in lista_cobra:
- 
-        pygame.draw.rect(tela, (0,255,0), (XeY[0], XeY[1], 20, 20))
+        pygame.draw.rect(tela, (0, 0, 255), (XeY[0], XeY[1], 20, 20))
 
 def reiniciar_jogo() :
     global pontos, comprimento_inicial, x_cobra, y_cobra, lista_cabeça, lista_cobra, x_maca, y_maca, morreu
     pontos = 0
-    comprimento_inicial = 5
+    comprimento_inicial = 10
     x_cobra = int(largura / 2)
     y_cobra = int(altura / 2) 
     lista_cobra = []
@@ -58,18 +57,27 @@ def reiniciar_jogo() :
 
 def mensagemInicial():
     msgInfo = 'Movimentação: W (cima), S (baixo), A (esquerda), D (direita)'
-    txtInfo = fonte.render(msgInfo, True, (255,255,255))
-    sleep(5)
+    txtInfo = fonte.render(msgInfo, True, (0,255,0))
+    
     #pygame.display.update()
+
+    fonte2 = pygame.font.SysFont('arial', 20, True, True )
+    texto_formatado = fonte2.render(msgInfo, True, (84, 22, 180))
+    ret_texto = texto_formatado.get_rect()
+    ret_texto.center = (largura//2, altura//2)
+    tela.blit(texto_formatado,ret_texto)
+    pygame.display.update()
+    sleep(5)
+    
  
 while True:  
     if inicio == True:
         mensagemInicial()
     inicio = False
-    relogio.tick(30)  
+    relogio.tick(90)  
     tela.fill((0,0,0)) 
-    msg = f'Ponto: {pontos}' 
-    txt = fonte.render(msg, True, (255, 255, 255))
+    msg = f'Score: {pontos}' 
+    txt = fonte.render(msg, True, (84, 22, 180))
     for event in pygame.event.get():  
         if event.type == QUIT:
             pygame.quit()
@@ -112,14 +120,14 @@ while True:
     x_cobra += x_controle
     y_cobra += y_controle
 
-    cobra = pygame.draw.rect(tela, (0, 255, 0), (x_cobra, y_cobra, 20, 20))  
-    maca = pygame.draw.rect(tela, (255,0,0), (x_maca, y_maca, 20, 20)) 
+    cobra = pygame.draw.rect(tela, (128, 0, 128), (x_cobra, y_cobra, 20, 20))  
+    maca = pygame.draw.rect(tela, (252,15,192), (x_maca, y_maca, 20, 20)) 
 
     if cobra.colliderect(maca):  
         x_maca = randint(40, 600)
         y_maca = randint(40, 430)
         pontos += 1
-        barulho_colisao.play() 
+        #barulho_colisao.play() 
         comprimento_inicial +=1
 
     lista_cabeça = []  
@@ -134,7 +142,7 @@ while True:
     if lista_cobra.count(lista_cabeça) > 1:
         fonte2 = pygame.font.SysFont('arial', 20, True, True )
         mensagem = 'Gamer Over? Prencione R'
-        texto_formatado = fonte2.render(mensagem, True, (255,255,255))
+        texto_formatado = fonte2.render(mensagem, True, (88,22,180))
         ret_texto = texto_formatado.get_rect()
         morreu = True
         while morreu:
