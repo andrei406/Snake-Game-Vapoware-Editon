@@ -1,5 +1,8 @@
 # Snake Game: vapowave editon
 Uma versão do clássico jogo da cobrinha em vapowave
+
+## Prints
+![Primeira print do jogo](prints/print_0.png)
  
 ## Créditos do Snake Game: Vapoware Editon
 

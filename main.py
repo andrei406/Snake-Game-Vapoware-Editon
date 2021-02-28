@@ -37,6 +37,9 @@ comprimento_inicial = 10
 morreu = False
 inicio = True
 
+imagem_fundo = pygame.image.load('imagens/star-background.png').convert()
+imagem_fundo = pygame.transform.scale(imagem_fundo, (largura, altura))
+
 
 def aumenta_cobra(lista_cobra):
     for XeY in lista_cobra:
@@ -75,7 +78,7 @@ while True:
         mensagemInicial()
     inicio = False
     relogio.tick(90)  
-    tela.fill((0,0,0)) 
+    tela.blit(imagem_fundo, (0,0))
     msg = f'Score: {pontos}' 
     txt = fonte.render(msg, True, (84, 22, 180))
     for event in pygame.event.get():  
@@ -173,7 +176,9 @@ while True:
 
     if len(lista_cobra ) > comprimento_inicial:
         del lista_cobra[0]
-
+    
     aumenta_cobra(lista_cobra)
     tela.blit(txt, (450, 40))
+    
+
     pygame.display.update() 
